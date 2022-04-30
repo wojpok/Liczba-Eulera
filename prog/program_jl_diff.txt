@@ -1,0 +1,157 @@
+1a2
+> 
+10a12,13
+> # Funckje obliczeniowe - konstrukltor macie
+> 
+32,33d34
+< 
+< # n-ty wyraz ciągu gamma, sumowanie odbywa się od elementu najmniejszego tj. 1/n
+49d49
+< # algorytm regresji liniowej
+71,72d70
+<         ## Dodatkowy output potrzebny we sprawozdaniu
+<         
+89,90d86
+<         # wyniki sparsowane do wklejenia do LaTeXa
+<         @printf("%.10f & %.10f & %.3e & %.3e & %.3e & %.3e\n", a[2,1], a[1,1], minBB, maxBB, minBW, maxBW)
+94,97c90
+< #	====================================================================
+< #							Generatory zbiorów
+< #   ====================================================================
+< # Przedziały równoodległe, o punkcie początkowym begX, końcowym endX i kroku step
+---
+> 
+109d101
+< # zbiór X dla pierwszej metody (zdefiniowany we sprawozdaniu)
+119,121c111,112
+< #	====================================================================
+< #							Regresja liniowa
+< #   ====================================================================
+---
+> 
+> 
+140,141c131,138
+<     if verbose       
+<         @printf("c = %.20f\nd = %.20f\n", c, d)   
+---
+>     if verbose
+>         
+>         
+>         #approx2 = log2(chartY[3]/chartY[2])/log2(chartY[2]/chartY[1])  
+>         #@printf("%.20f %.20f %.20f\n", approx2, d, abs((d - approx2) / d))
+>         @printf("c = %.20f\nd = %.20f\n", c, d)
+> 
+>         
+144d140
+<     # generator wykresu
+158,256d153
+< #	====================================================================
+< #							Druga Metoda
+< #   ====================================================================
+< function error(n)
+< 	return gamma(n) - eulerConstant
+< end
+< 
+< function convergenceExponent(n)
+< 	return log2(error(n)/error(n-1))/log2(error(n-1)/error(n-2))
+< end
+< 
+< # druga metoda
+< function compute2(inputs; verbose = false, chartName = "")
+<     valuesY = []
+<     
+<     # inicjacja tablic z wartościami
+<     for i in 1:length(inputs)
+<         push!(valuesY, convergenceExponent(inputs[i]))
+<     end 
+<     
+<     
+<     # rysowanie wykresu
+<     if chartName != ""
+< 
+<         rplot = Plots.scatter(inputs, valuesY , color="blue", title="Wykładnik zbiezności", legend=:outertopleft, label ="\$ c \$")
+<         
+<         f(x) = 1
+<         
+<         plot!(LinRange(inputs[1], inputs[length(inputs)], 100), f , color="red", label="\$ f(x) = 1 \$" )
+<     
+< 		savefig(rplot, chartName)
+<     end
+< end
+< 
+< 
+< #	====================================================================
+< #							Porównanie
+< #   ====================================================================
+< function compare(inputs; verbose = false, chartName = "")
+<     valuesY1 = []
+<     valuesY2 = []
+<     
+<     # inicjacja tablic z wartościami
+<     for i in 1:length(inputs)
+<         c, d = compute([inputs[i]-2, inputs[i]-1, inputs[i]])
+<         push!(valuesY1, d)
+<         push!(valuesY2, convergenceExponent(inputs[i]))
+<     end 
+<     
+<     
+<     # wykres
+<     if chartName != ""
+< 
+<         rplot = Plots.scatter(inputs, valuesY1,  color="blue", title="Wykładnik zbiezności", legend=:outertopleft, label ="Metoda 1")
+<         Plots.scatter!(inputs, valuesY2, color="yellow", label ="Metoda 2")
+<         
+<         f(x) = 1
+<         
+<         plot!(LinRange(inputs[1], inputs[length(inputs)], 100), f , color="red", label="\$ f(x) = 1 \$" )
+<         
+<         savefig(rplot, chartName)
+<     end
+< end
+< 
+< #	====================================================================
+< #							Wykresy i wyniki
+< #   ====================================================================
+< 
+< # wybor trybu dla programu
+< mode = 3
+< 
+< # tryb 1 - metoda 1
+< # tryb 2 - metoda 2
+< # tryb 3 - porównanie metod
+< # tryb 4 - wszystkie tryby jednocześnie
+< 
+< ## Metoda 1
+< if mode == 1 || mode == 4
+< 	compute(definputs(); 				 verbose = true, chartName = "chart1_1.png")
+< 	compute(inputgen(10^2, 10^2+100, 3); verbose = true)
+< 	compute(inputgen(10^3, 10^3+100, 3); verbose = true)
+< 	compute(inputgen(10^4, 10^4+100, 3); verbose = true)
+< 	compute(inputgen(10^5, 10^5+100, 3); verbose = true)
+< 	compute(inputgen(10^6, 10^6+100, 3); verbose = true, chartName = "chart1_6.png")
+< end
+< 
+< ## Metoda 2
+< if mode == 2 || mode == 4
+< 	compute2(inputgen(10^6, 10^6+1000, 20); verbose = true, chartName = "chart2_3.png")
+< 	compute2(inputgen(10^4, 10^4+1000, 20); verbose = true, chartName = "chart2_2.png")
+< 	compute2(inputgen(10^3, 10^3+1000, 20); verbose = true, chartName = "chart2_1.png")
+< end
+< 
+< ## Porównanie
+< if mode == 3 || mode == 4
+< 	compare(inputgen(10^6, 10^6+1000, 20); verbose = true, chartName = "chart3_3.png")
+< 	compare(inputgen(10^4, 10^4+1000, 20); verbose = true, chartName = "chart3_2.png")
+< 	compare(inputgen(10^3, 10^3+1000, 20); verbose = true, chartName = "chart3_1.png")
+< end
+257a155
+> res = Array{__precision}(undef, 6, 2)
+258a157,162
+> res[1,1], res[1,2] = compute(definputs(); verbose = true, chartName = "chart1.png")
+> res[2,1], res[2,2] = compute(inputgen(10^2, 10^2+100, 3); verbose = true, chartName = "chart2.png")
+> res[3,1], res[3,2] = compute(inputgen(10^3, 10^3+100, 3); verbose = true, chartName = "chart3.png")
+> res[4,1], res[4,2] = compute(inputgen(10^4, 10^4+100, 3); verbose = true, chartName = "chart4.png")
+> res[5,1], res[5,2] = compute(inputgen(10^5, 10^5+100, 3); verbose = true, chartName = "chart5.png")
+> res[6,1], res[6,2] = compute(inputgen(10^6, 10^6+100, 3); verbose = true, chartName = "chart6.png")
+259a164
+> println(res)

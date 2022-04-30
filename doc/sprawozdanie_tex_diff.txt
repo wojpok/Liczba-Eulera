@@ -1,0 +1,150 @@
+31,32c31
+< % grafika dodawana z folderu z programem
+< \graphicspath{ {./../prog} }
+---
+> %\graphicspath{ {./../prog} }
+36,37d34
+< \raggedbottom
+< 
+203a201
+> \newline
+205,207c203
+< \vspace{1cm}
+< \centerline{\includegraphics[scale=0.8]{chart1_1}}
+< \vspace{1cm}
+---
+> \centerline{\includegraphics[scale=0.8]{chart1}}
+228,234c224,230
+< 	    & C         & D         & $min_{BB}$        & $max_{BB}$       & $min_{BW}$        & $max_{BW}$        \\ [0.5ex] 
+<  $X$    & 0.4999230 & 0.9999873 & 1.060e-07 & 1.318e-05 & 1.973e-06 & 1.445e-04 \\ 
+<  $X_2$  & 0.4964835 & 0.9988178 & 1.281e-07 & 1.026e-05 & 1.083e-06 & 7.847e-05 \\
+<  $X_3$  & 0.4993679 & 0.9998409 & 1.843e-10 & 1.544e-08 & 2.041e-09 & 1.693e-07 \\
+<  $X_4$  & 0.4999153 & 0.9999834 & 1.599e-10 & 1.817e-10 & 2.286e-09 & 2.597e-09 \\
+<  $X_5$  & 0.4999910 & 0.9999985 & 5.014e-09 & 5.056e-09 & 8.830e-08 & 8.904e-08 \\ 
+<  $X_6$  & 0.5001478 & 1.0000071 & 1.358e-05 & 1.358e-05 & 2.842e-04 & 2.842e-04 \\ [1ex]
+---
+> 	    & C         & D         & minBB        & maxBB        & minBW        & maxBW        \\ [0.5ex] 
+>  $X$    & 0.4999230 & 0.9999873 & 0.0000001060 & 0.0000131793 & 0.0000019730 & 0.0001445246 \\ 
+>  $X_2$  & 0.4964835 & 0.9988178 & 0.0000001281 & 0.0000102621 & 0.0000010830 & 0.0000784665 \\
+>  $X_3$  & 0.4993679 & 0.9998409 & 0.0000000002 & 0.0000000154 & 0.0000000020 & 0.0000001693 \\
+>  $X_4$  & 0.4999153 & 0.9999834 & 0.0000000002 & 0.0000000002 & 0.0000000023 & 0.0000000026 \\
+>  $X_5$  & 0.4999910 & 0.9999985 & 0.0000000050 & 0.0000000051 & 0.0000000883 & 0.0000000890 \\ 
+>  $X_6$  & 0.5001478 & 1.0000071 & 0.0000135779 & 0.0000135784 & 0.0002842072 & 0.0002842169 \\ [1ex]
+237,239d232
+< \newline
+< \small{Kolejne kolumny od lewej: Obliczone wartości $c$ oraz $d$, minimalny i maksymalny błąd bezwzględny dla danego przedziału, minimlany i maksymalny błąd względny.}
+< 
+255,258c248
+< \vspace{1cm}
+< \centerline{\includegraphics[scale=0.8]{chart1_6}}
+< \vspace{1cm}
+< 
+---
+> 	\centerline{\includegraphics[scale=0.8]{chart6}}
+309,385c299,301
+< \section{Wyniki drugiej metody}
+< 
+< Drugą metodę, podobnie jak pierwszą, przetestowałem na kilku przedziałach, zdefiniowanych następująco:
+< $$
+< A_1 = \{10^3, 10^3+20, 10^3+40, \dots, 10^3+980\}
+< $$
+< $$
+< A_2 = \{10^4, 10^4+20, 10^4+40, \dots, 10^4+980\}
+< $$
+< $$
+< A_3 = \{10^6, 10^6+20, 10^6+40, \dots, 10^6+980\}
+< $$
+< 
+< 
+< Wyniki dla przedziału $A_1$ zawiera poniższy wykres:
+< 
+< \vspace{1cm}
+< \centerline{\includegraphics[scale=0.8]{chart2_1}}
+< \vspace{1cm}
+< 
+< Jak się okazuje kolejne przybliżenia wykładnika zbiezności $d$ zachowują się podobnie jak w pierwszej metodzie,
+< t.j. tworzą ciąg rosnący i nie przekraczają wartości 1.
+< Pojawiają się już jednak pewne problemy dla argumentów rzędu $10^4$.
+< Wykres dla zbioru $A_2$ nie jest tak równy jak dla poprzedniego zbioru.
+< 
+< \vspace{1cm}
+< \centerline{\includegraphics[scale=0.8]{chart2_2}}
+< \vspace{1cm}
+< 
+< Na tym wykresie gołym okiem widać że kolejne przybliżenia są coraz gorszej jakości. Wartości przestają formować ładną krzywą jak w poprzednim przykładzie.
+< Pomimo tego dalej możemy mówić o potencjalnej zbieżności przybliżeń do wartości 1.
+< Dla przypomnienia dla tego rzędu wartości metoda regresji liniowej zwróciła najlepsze lokalne przybliżenie wartości $d$ oraz $c$.
+< 
+< Dla ostatniego zbioru wykres jest następujący:
+< 
+< \vspace{1cm}
+< \centerline{\includegraphics[scale=0.8]{chart2_3}}
+< \vspace{1cm}
+< 
+< Wartości bardzo chaotycznie oscylują wokół prostej $f(x) = 1$.
+< Powodem tego może być fakt że wzór na przybliżenie $d$ wymaga dzielenia kolejnych wyrazów ciągu $e_n$ które liniowo zbiegają do zera. W połączeniu ze zjawiskiem utraty cyfr znaczących
+< powstały błąd kumuluje się i daje nieprzewidywalne wartości. Jest to pewien problem okupiony korzystaniem z arytmetyki 64-bitowej. Lepsze wyniki dla tego rzędu wartości będą trudne do uzyskania.
+< 
+< \section{Porównanie metod}
+< 
+< W ostatnim rozdziale chciałbym się pochylić nad zagadnieniem porówania obu metod.
+< Interesuje mnie kilka zagadnień:
+< \begin{itemize}
+< \item szybkość zbiegania do przewidywanego wykładnika zbiezności poszczególnych metod,
+< \item odporność na zjawisko utraty cyfr zanczących.
+< \end{itemize}
+< 
+< Porównanie metod dla poszczególnych wartości wykonam przez wyliczanie 3 kolejnych wyrazów ciągu $e_n$ i zaaplikowaniu ich do obu metod.
+< Porównanie wykonam na przedziałach $A_1$, $A_2$ i $A_3$ zdefiniowanych jak w poprzednim rozdziale
+< 
+< Wyniki są następujące:
+< 
+< \vspace{1cm}
+< \centerline{\includegraphics[scale=0.8]{chart3_1}}
+< \vspace{1cm}
+< \centerline{\includegraphics[scale=0.8]{chart3_2}}
+< \vspace{1cm}
+< \centerline{\includegraphics[scale=0.8]{chart3_3}}
+< \vspace{1cm}
+< 
+< Można zauważyć że obie metody posiadają pewne zalety i wady.
+< Mianowicie, metoda regresji liniowej dużo szybciej zbiega do oczekiwanej wartości, ale również dużo szybciej pada ofiarą kumulującego się błędu ciągu $e_n$.
+< Z kolei druga metoda zachowuje się zgoła odwrotnie, zbiega wolniej, ale wartości są mniej rozrzucone po wykresie.
+< Widać to dobrze dla przedziału $A_3$ gdzie metoda aproksymacji wykładnika ściślej przylega do funkcji $f(x) = 1$ niż metoda regresji liniowej.
+< 
+< Pomimo tego podziału zalet między metodami trzeba zauważyć że metoda regresji liniowej jest bardziej uniwersalna i co najważniejsze,
+< u podstaw tej metody leży problem minimalizacji odchylenia standardowego, więc dodanie punktów dla których znamy dokładne wartości pomaga
+< poprawić wyniki tej metody. Jednak jest to okupione faktem, że żeby z tej własności skorzystać musimy wiedzieć coś więcej o badnym ciągu, co nie zawsze jest możliwe.
+< 
+< \section{Literatura}
+< 
+< \begin{enumerate}
+<	\item  D. Kincaid, W. Cheney, \textit{Analiza numeryczna}, WNT, 2005.
+< \end{enumerate}
+---
+> \section{Usprawnienia do obliczeń}
+> \section{Wyniki z poprawioną precyzją}
+> \section{Wnioski}
+391,412d306
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+< 
